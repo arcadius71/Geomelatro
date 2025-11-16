@@ -16,21 +16,29 @@ return {
                 name = 'Trigger-Nometry',
                 text = {
                     "Retrigger played {C:attention}3's",
-                    "{C:attention}Aces'{}, and {C:attention}4's."
+                    "{C:attention}Aces'{}, and {C:attention}4's"
                 },
             },
             j_arcs_pi = {
                 name = 'Pi',
                 text = {
-                    "At the beginning of a blind,",
+                    "at the beginning of a blind",
                     "{C:green}#1# in #2#{} chance to spawn a",
-                    "Geomelatro Joker."
+                    "Geomelatro Joker"
                 },
             },
             j_arcs_triangle = {
                 name = 'Triangle',
                 text = {
                     "Area of a triangle is {C:white,X:mult}(B × H) ÷ 2",
+                    "left most {C:attention}joker's{} price is {E:1}base",
+                    "Right most {C:attention}joker's{} price is {E:1}height",
+                },
+            },
+            j_arcs_rectangle = {
+                name = 'Rectangle',
+                text = {
+                    "Area of a square is {C:mult}B × H",
                     "left most {C:attention}joker's{} price is {E:1}base",
                     "Right most {C:attention}joker's{} price is {E:1}height",
                 },
