@@ -1,0 +1,17 @@
+{
+  "id": "geomelatro",
+  "name": "Geomelatro",
+  "author": [
+    "arc"
+  ],
+  "description": "the greatest balatro mod on an angle",
+  "prefix": "arcs",
+  "main_file": "main.lua",
+  "version": "1.0.0",
+  "priority": 314159,
+  "badge_colour": "6d9f70",
+  "badge_text_colour": "FFFFFF",
+  "dependencies": [
+    "Steamodded (>=1.0.0~BETA-0827c)"
+  ]
+}
