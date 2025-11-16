@@ -1,4 +1,4 @@
-SMODS.Joker{ --Trigger-Nometry
+SMODS.Joker { --Trigger-Nometry
     key = "triggernometry",
     pos = {x=1, y=0},
     config = { extra = { repetitions = 1 } },
@@ -6,8 +6,6 @@ SMODS.Joker{ --Trigger-Nometry
     cost = 3,
     rarity = 1,
     blueprint_compat = true,
-    unlocked = true,
-    discovered = true,
 
     atlas = 'CustomJokers',
     pools = { ["arcs_arcs_jokers"] = true },

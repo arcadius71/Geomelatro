@@ -5,8 +5,6 @@ SMODS.Joker{ --Overgrowth
     cost = 7,
     rarity = 3,
     blueprint_compat = true,
-    unlocked = true,
-    discovered = true,
 
     atlas = 'CustomJokers',
     pools = { ["arcs_arcs_jokers"] = true },

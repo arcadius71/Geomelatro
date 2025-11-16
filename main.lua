@@ -1,67 +1,42 @@
-SMODS.Atlas({
-    key = "modicon", 
-    path = "ModIcon.png", 
-    px = 34,
-    py = 34,
-    atlas_table = "ASSET_ATLAS"
-})
-
-SMODS.Atlas({
-    key = "balatro", 
-    path = "balatro.png", 
-    px = 333,
-    py = 216,
-    prefix_config = { key = false },
-    atlas_table = "ASSET_ATLAS"
-})
-
-
-SMODS.Atlas({
-    key = "CustomJokers", 
-    path = "CustomJokers.png", 
-    px = 71,
-    py = 95, 
-    atlas_table = "ASSET_ATLAS"
-})
-
-local NFS = require("nativefs")
 to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
-local jokerIndexList = {1,2}
+local geomelatro = SMODS.current_mod
 
-local function load_jokers_folder()
-    local mod_path = SMODS.current_mod.path
-    local jokers_path = mod_path .. "/jokers"
-    local files = NFS.getDirectoryItemsInfo(jokers_path)
-    for i = 1, #jokerIndexList do
-        local file_name = files[jokerIndexList[i]].name
-        if file_name:sub(-4) == ".lua" then
-            assert(SMODS.load_file("jokers/" .. file_name))()
-        end
-    end
+
+function geomelatro.Load_file(file) -- basically just SMODS.load_file() but safer, so i can accidentally have somethign break and it be chill
+	local chunk = SMODS.load_file(file, "geomelatro")
+	if chunk then
+		local ok, func = pcall(chunk)
+		if ok then
+			print("Geomelatro | loaded ".. file)
+			return func
+		else
+			print("Geomelatro | Failed on ".. file, " : ", func)
+		end
+	end
+	return nil
 end
 
-load_jokers_folder()
-SMODS.ObjectType({
-    key = "arcs_food",
-    cards = {
-        ["j_gros_michel"] = true,
-        ["j_egg"] = true,
-        ["j_ice_cream"] = true,
-        ["j_cavendish"] = true,
-        ["j_turtle_bean"] = true,
-        ["j_diet_cola"] = true,
-        ["j_popcorn"] = true,
-        ["j_ramen"] = true,
-        ["j_selzer"] = true
-    },
-})
+function geomelatro.Load_Dir(directory)
+	local files = NFS.getDirectoryItems(geomelatro.path .. "/" .. directory)
+	local regular_files = {}
 
-SMODS.ObjectType({
-    key = "arcs_arcs_jokers",
-    cards = {
-        ["j_arcs_overgrowth"] = true,
-        ["j_arcs_triggernometry"] = true
-    },
-})
+	for _, filename in ipairs(files) do -- iterate over all files in the directory
+		local file_path = directory .. "/" .. filename
+		if file_path:match(".lua$") then -- check if its lua
+			if filename:match("^_") then -- i dont even know
+				geomelatro.Load_file(file_path) -- load lua file
+			else
+				table.insert(regular_files, file_path) -- add non lua to other table
+			end
+		end
+	end
+
+	for _, file_path in ipairs(regular_files) do
+		geomelatro.Load_file(file_path) -- load the other things
+	end
+end
+
+geomelatro.Load_Dir("Objects")
+geomelatro.Load_Dir("Objects/jokers")

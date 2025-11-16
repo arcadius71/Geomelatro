@@ -19,6 +19,14 @@ return {
                     "{C:attention}Aces'{}, and {C:attention}4's"
                 },
             },
+            j_arcs_pi = {
+                name = 'Pi',
+                text = {
+                    "at the beginning of a blind",
+                    "{C:green}#1# in #2#{} chance to spawn a",
+                    "Geomelatro Joker"
+                },
+            },
         },
         Other = {},
         Planet = {},
