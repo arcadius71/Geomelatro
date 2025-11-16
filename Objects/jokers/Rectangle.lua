@@ -1,8 +1,8 @@
 SMODS.Joker {
     key = "rectangle",
-    -- pos = {x=2, y=0},
+    --pos = {x=3, y=0},
 
-    cost = 7, -- :trol:
+    cost = 4, -- :trol:
     rarity = 1,
     blueprint_compat = true,
     
