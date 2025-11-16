@@ -27,6 +27,14 @@ return {
                     "Geomelatro Joker"
                 },
             },
+            j_arcs_triangle = {
+                name = 'Triangle',
+                text = {
+                    "Area of a triangle is {C:white,X:mult}(B × H) ÷ 2",
+                    "left most {C:attention}joker's{} price is {E:1}base",
+                    "Right most {C:attention}joker's{} price is {E:1}height",
+                },
+            },
         },
         Other = {},
         Planet = {},
