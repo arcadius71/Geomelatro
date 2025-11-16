@@ -1,10 +1,8 @@
 {
   "id": "geomelatro",
   "name": "Geomelatro",
-  "author": [
-    "arc"
-  ],
-  "description": "the greatest balatro mod on an angle",
+  "author": ["arc"],
+  "description": "the greatest balatro mod on an angle EVER",
   "prefix": "arcs",
   "main_file": "main.lua",
   "version": "1.0.0",

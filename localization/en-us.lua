@@ -16,15 +16,15 @@ return {
                 name = 'Trigger-Nometry',
                 text = {
                     "Retrigger played {C:attention}3's",
-                    "{C:attention}Aces'{}, and {C:attention}4's"
+                    "{C:attention}Aces'{}, and {C:attention}4's."
                 },
             },
             j_arcs_pi = {
                 name = 'Pi',
                 text = {
-                    "at the beginning of a blind",
+                    "At the beginning of a blind,",
                     "{C:green}#1# in #2#{} chance to spawn a",
-                    "Geomelatro Joker"
+                    "Geomelatro Joker."
                 },
             },
         },
