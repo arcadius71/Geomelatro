@@ -1,9 +1,9 @@
 SMODS.Joker {
-    key = "triangle",
+    key = "rectangle",
     -- pos = {x=2, y=0},
 
     cost = 7, -- :trol:
-    rarity = 3,
+    rarity = 1,
     blueprint_compat = true,
     
     -- atlas = 'CustomJokers',
@@ -19,10 +19,10 @@ SMODS.Joker {
             local base = G.jokers.cards[1].sell_cost
             local height = G.jokers.cards[#G.jokers.cards].sell_cost
 
-            local area = (base*height) / 2
+            local area = base * height
 
             return {
-                xmult = area
+                mult = area
             }
         end
     end
