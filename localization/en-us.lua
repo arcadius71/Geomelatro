@@ -39,7 +39,7 @@ return {
                 name = 'Rectangle',
                 text = {
                     "Area of a square is {C:mult}B × H",
-                    "left most {C:attention}joker's{} price is {E:1}base",
+                    "Left most {C:attention}joker's{} price is {E:1}base",
                     "Right most {C:attention}joker's{} price is {E:1}height",
                 },
             },

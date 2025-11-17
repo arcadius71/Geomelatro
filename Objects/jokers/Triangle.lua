@@ -6,7 +6,7 @@ SMODS.Joker {
     rarity = 3,
     blueprint_compat = true,
     
-    -- atlas = 'CustomJokers',
+    atlas = 'CustomJokers',
     pools = { ["arcs_arcs_jokers"] = true },
 
     set_badges = function(_, _, badges)
