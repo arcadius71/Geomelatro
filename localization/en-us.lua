@@ -43,6 +43,14 @@ return {
                     "Right most {C:attention}joker's{} price is {E:1}height",
                 },
             },
+                        j_arcs_jellyfish = {
+                name = 'Jellyfish',
+                text = {
+                    "If {C:attention}first played hand{} contains",
+                    "{C:attention}2{} cards then give first card",
+                    "{C:dark_edition,}Bioluminescent{}.",
+                },
+            },
         },
         Other = {},
         Planet = {},
