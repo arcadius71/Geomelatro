@@ -7,9 +7,23 @@ return {
                 name = 'Bioluminescent',
                 label = 'Bioluminescent',
                 text = {
-                    '{C:white,X:mult}X3{} Mult',
+                    '{C:white,X:mult}X#1#{} Mult',
                 }
-            }
+            },
+            e_arcs_warm = {
+                name = 'Warm',
+                label = 'Warm',
+                text = {
+                    '{C:chips}+#1#{} chips',
+                }
+            },
+            e_arcs_toasted = {
+                name = 'Toasted',
+                label = 'Toasted',
+                text = {
+                    '{C:chips}+#1#{} chips',
+                }
+            },
         },
         Joker = {
             j_arcs_overgrowth = {
