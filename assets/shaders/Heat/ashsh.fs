@@ -5,7 +5,7 @@
 #endif
 
 // Look ionized.fs for explanation
-extern PRECISION vec2 warmsh;
+extern PRECISION vec2 ashsh;
 
 extern PRECISION number dissolve;
 extern PRECISION number time;
@@ -78,7 +78,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
         magenta = (1 - tex.g - black) / (1 - black);
         yellow = (1 - tex.b - black) / (1 - black);
     }
-    if (warmsh.g > 0.0 || warmsh.g < 0.0) {
+    if (ashsh.g > 0.0 || ashsh.g < 0.0) {
         cyan *= 0.6;
         magenta *= 0.6;
         yellow *= 1.4;
@@ -90,14 +90,14 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     tex.b = (1 - yellow) * (1 - black);
 
     // lower contrast
-    tex = increase_contrast(tex, 0.33);
+    tex = increase_contrast(tex, 0.95);
 
-    tex.r += .75; 
-    tex.g -= .15;
-    tex.b -= .55; 
+    tex.r -= .8; 
+    tex.g -= .8; // i mean remove some
+    tex.b -= .8; 
 
     // required
-	return dissolve_mask((tex/1.66)*colour, texture_coords, uv);
+	return dissolve_mask(tex*colour, texture_coords, uv);
 }
 
 number hue(number s, number t, number h)

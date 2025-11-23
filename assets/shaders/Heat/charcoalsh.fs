@@ -5,7 +5,7 @@
 #endif
 
 // Look ionized.fs for explanation
-extern PRECISION vec2 warmsh;
+extern PRECISION vec2 charcoalsh;
 
 extern PRECISION number dissolve;
 extern PRECISION number time;
@@ -78,7 +78,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
         magenta = (1 - tex.g - black) / (1 - black);
         yellow = (1 - tex.b - black) / (1 - black);
     }
-    if (warmsh.g > 0.0 || warmsh.g < 0.0) {
+    if (charcoalsh.g > 0.0 || charcoalsh.g < 0.0) {
         cyan *= 0.6;
         magenta *= 0.6;
         yellow *= 1.4;
@@ -89,15 +89,31 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     tex.g = (1.2 - magenta) * (1 - black);
     tex.b = (1 - yellow) * (1 - black);
 
-    // lower contrast
-    tex = increase_contrast(tex, 0.33);
+    // gradient
 
-    tex.r += .75; 
-    tex.g -= .15;
-    tex.b -= .55; 
+    // float brightness_reduction = (0.5 * (uv.y-0.5));
+    // float bottom_rim = (0.2 * (uv.y-0.5));
+    // float x_brightness_reduction = (0.5 * (uv.x-0.5));
+    // tex.rgb *= (1.0 - brightness_reduction);
+    // tex.rgb *= (1.0 + bottom_rim);
+    // tex.rgb *= (1.0 - x_brightness_reduction);
+    // tex.g *= (1.0 - (0.5 * brightness_reduction));
+    // tex.g *= (1.0 - (0.5 * x_brightness_reduction));
+    // tex.b *= (1.0 - brightness_reduction);
+    // tex.b *= (1.0 - x_brightness_reduction);
+
+    // lower contrast
+    tex = increase_contrast(tex, 0.85);
+    // tex.r *= 0.9;
+    // tex.g *= 0.35;
+    // tex.b *= 0.2;
+
+    tex.r -= .7; 
+    tex.g -= .833; // i mean remove some
+    tex.b -= .9; 
 
     // required
-	return dissolve_mask((tex/1.66)*colour, texture_coords, uv);
+	return dissolve_mask((tex/1.2)*colour, texture_coords, uv);
 }
 
 number hue(number s, number t, number h)

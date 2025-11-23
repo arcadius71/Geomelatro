@@ -36,6 +36,11 @@ Ash = x4 mult
 
 ]]
 SMODS.Shader({ key = 'warmsh', path = 'Heat/warmsh.fs' })
+SMODS.Shader({ key = 'hotsh', path = 'Heat/hotsh.fs' })
+SMODS.Shader({ key = 'toastedsh', path = 'Heat/toastedsh.fs' })
+SMODS.Shader({ key = 'burntsh', path = 'Heat/burntsh.fs' })
+SMODS.Shader({ key = 'charcoalsh', path = 'Heat/charcoalsh.fs' })
+SMODS.Shader({ key = 'ashsh', path = 'Heat/ashsh.fs' })
 
 
 SMODS.Edition {
@@ -64,7 +69,7 @@ SMODS.Edition {
 
 SMODS.Edition {
     key = "hot",
-    shader = 'warmsh',
+    shader = 'hotsh',
     
     config = { chips = 75,},
     in_shop = false,
@@ -86,7 +91,6 @@ SMODS.Edition {
     end
 }
 
-SMODS.Shader({ key = 'toastedsh', path = 'Heat/toastedsh.fs' })
 SMODS.Edition {
     key = "toasted",
     shader = 'toastedsh',
@@ -113,7 +117,7 @@ SMODS.Edition {
 
 SMODS.Edition {
     key = "burnt",
-    shader = 'warmsh',
+    shader = 'burntsh',
     
     config = { mult = 25},
     in_shop = false,
@@ -137,7 +141,7 @@ SMODS.Edition {
 
 SMODS.Edition {
     key = "charcoal",
-    shader = 'warmsh',
+    shader = 'charcoalsh',
     
     config = { xmult = 2 },
     in_shop = false,
@@ -161,7 +165,7 @@ SMODS.Edition {
 
 SMODS.Edition {
     key = "ash",
-    shader = 'warmsh',
+    shader = 'ashsh',
     
     config = { xmult = 4 },
     in_shop = false,

@@ -89,7 +89,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     // gradient
 
     float brightness_reduction = (0.5 * (uv.y-0.5));
-    float bottom_rim = (0.2 * (uv.y-0.5));
+    float bottom_rim = (0.33 * (uv.y-0.5));
     float x_brightness_reduction = (0.5 * (uv.x-0.5));
     tex.rgb *= (1.0 - brightness_reduction);
     tex.rgb *= (1.0 + bottom_rim);
@@ -100,7 +100,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     tex.b *= (1.0 - x_brightness_reduction);
 
     // lower contrast
-    tex = increase_contrast(tex, 0.8);
+    tex = increase_contrast(tex, 0.6);
     tex.r *= 1.2;
     tex.g *= 0.90;
     tex.b *= 0.8;
