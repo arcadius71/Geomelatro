@@ -3,13 +3,7 @@ SMODS.Shader({ key = 'bioluminescent', path = 'bioluminescent.fs' })
 SMODS.Edition {
     key = "bio",
     shader = 'bioluminescent',
-    loc_txt = {
-        name = 'Bioluminescent',
-        label = 'Bioluminescent',
-        text = {
-            '{C:white,X:mult}X3{} Mult',
-        }
-    },
+    
     config = { x_mult = 3 },
     in_shop = true,
     weight = 2,

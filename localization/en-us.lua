@@ -2,7 +2,15 @@ return {
     descriptions = {
         Back = {},
         Blind = {},
-        Enhanced = {},
+        Enhanced = {
+            e_arcs_bio = {
+                name = 'Bioluminescent',
+                label = 'Bioluminescent',
+                text = {
+                    '{C:white,X:mult}X3{} Mult',
+                }
+            }
+        },
         Joker = {
             j_arcs_overgrowth = {
                 name = 'Overgrowth',
@@ -43,12 +51,12 @@ return {
                     "Right most {C:attention}joker's{} price is {E:1}height",
                 },
             },
-                        j_arcs_jellyfish = {
+            j_arcs_jellyfish = {
                 name = 'Jellyfish',
                 text = {
                     "If {C:attention}first played hand{} contains",
                     "{C:attention}2{} cards then give first card",
-                    "{C:dark_edition,}Bioluminescent{}.",
+                    "{E:1, C:dark_edition}Bioluminescent{}.",
                 },
             },
         },

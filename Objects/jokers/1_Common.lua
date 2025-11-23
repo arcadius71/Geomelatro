@@ -1,6 +1,6 @@
 SMODS.Joker {
     key = "rectangle",
-    pos = {x=3, y=0},
+    pos = {x=4, y=0},
 
     cost = 4, -- :trol:
     rarity = 1,
