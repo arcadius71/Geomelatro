@@ -1,16 +1,15 @@
 SMODS.Shader({ key = 'bioluminescent', path = 'bioluminescent.fs' })
-
 SMODS.Edition {
     key = "bio",
     shader = 'bioluminescent',
     
-    config = { x_mult = 3 },
+    config = { xmult = 3 },
     in_shop = true,
     weight = 2,
     extra_cost = 5,
     sound = { sound = "polychrome1", per = 1.2, vol = 0.7 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.x_mult } }
+        return { vars = { card.edition.xmult } }
     end,
     get_weight = function(self)
         return (G.GAME.edition_rate - 1) * G.P_CENTERS["e_negative"].weight + G.GAME.edition_rate * self.weight
@@ -18,7 +17,7 @@ SMODS.Edition {
     calculate = function(self, card, context)
         if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
             return {
-                x_mult = card.edition.x_mult
+                xmult = card.edition.xmult
             }
         end
     end
