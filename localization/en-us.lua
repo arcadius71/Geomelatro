@@ -7,7 +7,7 @@ return {
                 name = 'Bioluminescent',
                 label = 'Bioluminescent',
                 text = {
-                    '{C:white,X:mult}X#1#{} Mult',
+                    '{C:white,X:mult}X3{} Mult',
                 }
             },
             e_arcs_warm = {
@@ -70,6 +70,14 @@ return {
                 text = {
                     "If {C:attention}first played hand{} contains",
                     "{C:attention}2{} cards then give first card",
+                    "{E:1, C:dark_edition}Bioluminescent{}.",
+                },
+            },
+            j_arcs_sun = {
+                name = 'Sun',
+                text = {
+                    "First played Heart{} card",
+                    "{C:attention}2{} ",
                     "{E:1, C:dark_edition}Bioluminescent{}.",
                 },
             },

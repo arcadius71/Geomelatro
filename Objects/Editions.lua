@@ -36,7 +36,6 @@ Ash = x4 mult
 
 ]]
 SMODS.Shader({ key = 'warmsh', path = 'Heat/warmsh.fs' })
-SMODS.Shader({ key = 'toastedsh', path = 'Heat/toastedsh.fs' })
 
 
 SMODS.Edition {
@@ -87,6 +86,7 @@ SMODS.Edition {
     end
 }
 
+SMODS.Shader({ key = 'toastedsh', path = 'Heat/toastedsh.fs' })
 SMODS.Edition {
     key = "toasted",
     shader = 'toastedsh',
