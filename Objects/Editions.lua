@@ -8,7 +8,7 @@ SMODS.Edition {
         label = 'Bioluminescent',
         text = {
             [1] = '{X:mult,C:white}x3{} Mult'
-        },
+        }},
     
     config = { xmult = 3 },
     in_shop = true,
@@ -38,7 +38,8 @@ Warm = +15 mult
 Hot  = +75 chips
 Toasted = +10 mult
 
-]],
+]]
+
 SMODS.Shader({ key = 'warmsh', path = 'Heat/warmsh.fs' }),
 SMODS.Shader({ key = 'hotsh', path = 'Heat/hotsh.fs' }),
 SMODS.Shader({ key = 'toastedsh', path = 'Heat/toastedsh.fs' }),
@@ -138,5 +139,4 @@ SMODS.Edition {
             }
         end
     end
-}
 }

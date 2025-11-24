@@ -1,5 +1,5 @@
 SMODS.Joker({
-    key = "sun",
+    key = "Sun",
 
     config = { extra = { lifecycle = {
         "e_arcs_warm",
