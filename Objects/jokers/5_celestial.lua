@@ -5,6 +5,9 @@ SMODS.Joker({
         "e_arcs_warm",
         "e_arcs_hot",
         "e_arcs_toasted",
+        "e_arcs_burnt",
+        "e_arcs_charcoal",
+        "e_arcs_ash",
     } } },
 
     cost = 11,
