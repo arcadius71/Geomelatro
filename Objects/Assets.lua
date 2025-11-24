@@ -31,3 +31,11 @@ SMODS.ObjectType({
         ["j_arcs_triggernometry"] = true
     },
 })
+
+SMODS.Atlas({
+    key = "backs",
+    path = "backs.png",
+    px = 71,
+    py = 95,
+    atlas_table = "ASSET_ATLAS"
+})

@@ -2,6 +2,13 @@ SMODS.Shader({ key = 'bioluminescent', path = 'bioluminescent.fs' })
 SMODS.Edition {
     key = "bio",
     shader = 'bioluminescent',
+
+    loc_txt = {
+        name = 'Bioluminescent',
+        label = 'Bioluminescent',
+        text = {
+            [1] = '{X:mult,C:white}x3{} Mult'
+        },
     
     config = { xmult = 3 },
     in_shop = true,
@@ -27,33 +34,35 @@ SMODS.Edition {
 
 --[[
 
-Warm = +25 chips
+Warm = +15 mult
 Hot  = +75 chips
 Toasted = +10 mult
-Burnt = +25 mult
-Charcoal = x2 mult
-Ash = x4 mult
 
-]]
-SMODS.Shader({ key = 'warmsh', path = 'Heat/warmsh.fs' })
-SMODS.Shader({ key = 'hotsh', path = 'Heat/hotsh.fs' })
-SMODS.Shader({ key = 'toastedsh', path = 'Heat/toastedsh.fs' })
-SMODS.Shader({ key = 'burntsh', path = 'Heat/burntsh.fs' })
-SMODS.Shader({ key = 'charcoalsh', path = 'Heat/charcoalsh.fs' })
-SMODS.Shader({ key = 'ashsh', path = 'Heat/ashsh.fs' })
+]],
+SMODS.Shader({ key = 'warmsh', path = 'Heat/warmsh.fs' }),
+SMODS.Shader({ key = 'hotsh', path = 'Heat/hotsh.fs' }),
+SMODS.Shader({ key = 'toastedsh', path = 'Heat/toastedsh.fs' }),
 
 
 SMODS.Edition {
     key = "warm",
     shader = 'warmsh',
+
+    loc_txt = {
+        name = "Hot",
+        label = "Hot",
+        text = {
+            [1] = '{X:mult,C:white}+15{} Mult'
+        }
+    },
     
-    config = { chips = 25, WarmWeight = 1.5},
+    config = { mult = 15, WarmWeight = 1.5},
     in_shop = false,
     weight = 0,
     extra_cost = 5,
     sound = { sound = "polychrome1", per = 1.2, vol = 0.7 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.chips } }
+        return { vars = { card.edition.mult } }
     end,
     get_weight = function(self)
         return 0
@@ -61,23 +70,31 @@ SMODS.Edition {
     calculate = function(self, card, context)
         if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
             return {
-                chips = card.edition.chips
+                mult = card.edition.mult
             }
         end
     end
-}
+},
 
 SMODS.Edition {
     key = "hot",
     shader = 'hotsh',
+
+        loc_txt = {
+        name = "Boiling",
+        label = "Boiling",
+        text = {
+            [1] = '{X:mult,C:white}+50{} Mult'
+        }
+    },
     
-    config = { chips = 75,},
+    config = { mult = 50,},
     in_shop = false,
     weight = 0,
     extra_cost = 5,
     sound = { sound = "polychrome1", per = 1.2, vol = 0.7 },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.chips } }
+        return { vars = { card.edition.mult } }
     end,
     get_weight = function(self)
         return 0
@@ -85,65 +102,25 @@ SMODS.Edition {
     calculate = function(self, card, context)
         if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
             return {
-                chips = card.edition.chips
+                mult = card.edition.mult
             }
         end
     end
-}
+},
 
 SMODS.Edition {
     key = "toasted",
     shader = 'toastedsh',
-    
-    config = { mult = 10 },
-    in_shop = false,
-    weight = 0,
-    extra_cost = 5,
-    sound = { sound = "polychrome1", per = 1.2, vol = 0.7 },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.mult } }
-    end,
-    get_weight = function(self)
-        return 0 --(G.GAME.edition_rate - 1) * G.P_CENTERS["e_negative"].weight + G.GAME.edition_rate * self.weight
-    end,
-    calculate = function(self, card, context)
-        if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-            return {
-                mult = card.edition.mult
-            }
-        end
-    end
-}
 
-SMODS.Edition {
-    key = "burnt",
-    shader = 'burntsh',
+            loc_txt = {
+        name = "Scalding",
+        label = "Scalding",
+        text = {
+            [1] = '{X:mult,C:white}X5{} Mult'
+        }
+    },
     
-    config = { mult = 25},
-    in_shop = false,
-    weight = 0,
-    extra_cost = 5,
-    sound = { sound = "polychrome1", per = 1.2, vol = 0.7 },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.mult } }
-    end,
-    get_weight = function(self)
-        return 0
-    end,
-    calculate = function(self, card, context)
-        if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-            return {
-                mult = card.edition.mult
-            }
-        end
-    end
-}
-
-SMODS.Edition {
-    key = "charcoal",
-    shader = 'charcoalsh',
-    
-    config = { xmult = 2 },
+    config = { xmult = 5 },
     in_shop = false,
     weight = 0,
     extra_cost = 5,
@@ -152,7 +129,7 @@ SMODS.Edition {
         return { vars = { card.edition.xmult } }
     end,
     get_weight = function(self)
-        return 0
+        return 0 --(G.GAME.edition_rate - 1) * G.P_CENTERS["e_negative"].weight + G.GAME.edition_rate * self.weight
     end,
     calculate = function(self, card, context)
         if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
@@ -162,27 +139,4 @@ SMODS.Edition {
         end
     end
 }
-
-SMODS.Edition {
-    key = "ash",
-    shader = 'ashsh',
-    
-    config = { xmult = 4 },
-    in_shop = false,
-    weight = 0,
-    extra_cost = 5,
-    sound = { sound = "polychrome1", per = 1.2, vol = 0.7 },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.edition.chips } }
-    end,
-    get_weight = function(self)
-        return 0
-    end,
-    calculate = function(self, card, context)
-        if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-            return {
-                xmult = card.edition.xmult
-            }
-        end
-    end
 }
