@@ -5,7 +5,7 @@
 #endif
 
 // Look ionized.fs for explanation
-extern PRECISION vec2 burntsh;
+extern PRECISION vec2 toastedsh;
 
 extern PRECISION number dissolve;
 extern PRECISION number time;
@@ -78,38 +78,34 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
         magenta = (1 - tex.g - black) / (1 - black);
         yellow = (1 - tex.b - black) / (1 - black);
     }
-    if (burntsh.g > 0.0 || burntsh.g < 0.0) {
-        cyan *= 0.6;
-        magenta *= 0.6;
-        yellow *= 1.4;
-        black *= 0.9;
+    if (toastedsh.g > 0.0 || toastedsh.g < 0.0) {
+        cyan *= 0.55;
+        magenta *= 0.55;
+        yellow *= 0.8;
+        black *= 0.7;
 	}
     
-    tex.r = (1.2 - cyan) * (1 - black);
-    tex.g = (1.2 - magenta) * (1 - black);
-    tex.b = (1 - yellow) * (1 - black);
+    tex.r = (1.15 - cyan) * (1 - black);
+    tex.g = (1.15 - magenta) * (1 - black);
+    tex.b = (1.1 - yellow) * (1 - black);
 
-    // gradient
-
-    float brightness_reduction = (0.5 * (uv.y-0.5));
-    float bottom_rim = -0.5;
-    float x_brightness_reduction = (0.5 * (uv.x-0.5));
+    float brightness_reduction = (0.4 * (uv.y-0.5));
+    float bottom_rim = 0.05;
+    float x_brightness_reduction = (0.4 * (uv.x-0.5));
     tex.rgb *= (1.0 - brightness_reduction);
     tex.rgb *= (1.0 + bottom_rim);
     tex.rgb *= (1.0 - x_brightness_reduction);
-    tex.g *= (1.0 - (0.5 * brightness_reduction));
-    tex.g *= (1.0 - (0.5 * x_brightness_reduction));
+    tex.g *= (1.0 - (0.4 * brightness_reduction));
+    tex.g *= (1.0 - (0.4 * x_brightness_reduction));
     tex.b *= (1.0 - brightness_reduction);
     tex.b *= (1.0 - x_brightness_reduction);
 
-    // lower contrast
-    tex = increase_contrast(tex, 0.75);
-    tex.r -= .45; 
-    tex.g -= .7;
-    tex.b -= .75; 
+    tex = increase_contrast(tex, 0.9);
+    tex.r += .075; 
+    tex.g += .05;
+    tex.b += .025;
 
-    // required
-	return dissolve_mask((tex/1.35)*colour, texture_coords, uv);
+    return dissolve_mask((tex*1.1)*colour, texture_coords, uv);
 }
 
 number hue(number s, number t, number h)
@@ -120,40 +116,6 @@ number hue(number s, number t, number h)
 	if (hs < 4.) return (t-s) * (4.-hs) + s;
 	return s;
 }
-
-// vec4 RGB(vec4 c)
-// {
-// 	if (c.y < 0.0001)
-// 		return vec4(vec3(c.z), c.a);
-
-// 	number t = (c.z < .5) ? c.y*c.z + c.z : -c.y*c.z + (c.y+c.z);
-// 	number s = 2.0 * c.z - t;
-// 	return vec4(hue(s,t,c.x + 1./3.), hue(s,t,c.x), hue(s,t,c.x - 1./3.), c.w);
-// }
-
-// vec4 HSL(vec4 c)
-// {
-// 	number low = min(c.r, min(c.g, c.b));
-// 	number high = max(c.r, max(c.g, c.b));
-// 	number delta = high - low;
-// 	number sum = high+low;
-
-// 	vec4 hsl = vec4(.0, .0, .5 * sum, c.a);
-// 	if (delta == .0)
-// 		return hsl;
-
-// 	hsl.y = (hsl.z < .5) ? delta / sum : delta / (2.0 - sum);
-
-// 	if (high == c.r)
-// 		hsl.x = (c.g - c.b) / delta;
-// 	else if (high == c.g)
-// 		hsl.x = (c.b - c.r) / delta + 2.0;
-// 	else
-// 		hsl.x = (c.r - c.g) / delta + 4.0;
-
-// 	hsl.x = mod(hsl.x / 6., 1.);
-// 	return hsl;
-// }
 
 vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv)
 {
