@@ -40,3 +40,5 @@ end
 
 geomelatro.Load_Dir("Objects")
 geomelatro.Load_Dir("Objects/jokers")
+geomelatro.Load_Dir("Objects/backs")
+geomelatro.Load_Dir("Objects/rarities")

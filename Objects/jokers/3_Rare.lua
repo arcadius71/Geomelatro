@@ -22,8 +22,6 @@ SMODS.Joker{ --Overgrowth
                     set = "Playing Card",
                     rank = context.full_hand[i].base.value,
                     suit = context.full_hand[i].base.suit,
-                    no_edition = true,
-                    no_enhancement = true,
                 })
                 card_copied:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1

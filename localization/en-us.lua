@@ -2,7 +2,29 @@ return {
     descriptions = {
         Back = {},
         Blind = {},
-        Enhanced = {},
+        Enhanced = {
+            e_arcs_bio = {
+                name = 'Bioluminescent',
+                label = 'Bioluminescent',
+                text = {
+                    '{C:white,X:mult}X3{} Mult',
+                }
+            },
+            e_arcs_warm = {
+                name = 'Warm',
+                label = 'Warm',
+                text = {
+                    '{C:chips}+#1#{} chips',
+                }
+            },
+            e_arcs_toasted = {
+                name = 'Toasted',
+                label = 'Toasted',
+                text = {
+                    '{C:chips}+#1#{} chips',
+                }
+            },
+        },
         Joker = {
             j_arcs_overgrowth = {
                 name = 'Overgrowth',
@@ -39,8 +61,24 @@ return {
                 name = 'Rectangle',
                 text = {
                     "Area of a square is {C:mult}B × H",
-                    "left most {C:attention}joker's{} price is {E:1}base",
+                    "Left most {C:attention}joker's{} price is {E:1}base",
                     "Right most {C:attention}joker's{} price is {E:1}height",
+                },
+            },
+            j_arcs_jellyfish = {
+                name = 'Jellyfish',
+                text = {
+                    "If {C:attention}first played hand{} contains",
+                    "{C:attention}2{} cards then give first card",
+                    "{E:1, C:dark_edition}Bioluminescent{}.",
+                },
+            },
+            j_arcs_sun = {
+                name = 'Sun',
+                text = {
+                    "First played Heart{} card",
+                    "{C:attention}2{} ",
+                    "{E:1, C:dark_edition}Bioluminescent{}.",
                 },
             },
         },
