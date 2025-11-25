@@ -13,7 +13,7 @@ SMODS.Edition {
     
     config = { xmult = 3 },
     in_shop = true,
-    weight = 2,
+    weight = 8,
     extra_cost = 5,
     sound = { sound = "polychrome1", per = 1.2, vol = 0.7 },
     loc_vars = function(self, info_queue, card)

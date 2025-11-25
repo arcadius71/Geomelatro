@@ -38,7 +38,7 @@ return {
             j_arcs_rectangle = {
                 name = 'Rectangle',
                 text = {
-                    "Area of a square is {C:mult}B × H",
+                    "Area of a square is {C:white,X:mult}B × H",
                     "Left most {C:attention}joker's{} price is {E:1}base",
                     "Right most {C:attention}joker's{} price is {E:1}height",
                 },
@@ -55,8 +55,7 @@ return {
                 name = 'Sun',
                 text = {
                     "First played Heart{} card",
-                    "{C:attention}2{} ",
-                    "{E:1, C:dark_edition}Bioluminescent{}.",
+                    "Scales {E:1,C:dark_edition}Heat{}.",
                 },
             },
         },
