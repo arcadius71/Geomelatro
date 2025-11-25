@@ -54,7 +54,7 @@ return {
             j_arcs_sun = {
                 name = 'Sun',
                 text = {
-                    "First played Heart{} card",
+                    "First played {C:heart}Heart{} card",
                     "Scales {E:1,C:dark_edition}Heat{}.",
                 },
             },

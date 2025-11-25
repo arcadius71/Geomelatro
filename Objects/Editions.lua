@@ -31,6 +31,39 @@ SMODS.Edition {
     end
 }
 
+SMODS.Shader({ key = 'moonlit', path = 'moonlit.fs' })
+SMODS.Edition {
+    key = "moon",
+    shader = 'moonlit',
+
+    loc_txt = {
+        name = 'Moonlit',
+        label = 'Moonlit',
+        text = {
+            '{X:chips,C:white}x5{} Chips',
+        },
+    },
+    
+    config = { xchips = 5 },
+    in_shop = true,
+    weight = 10,
+    extra_cost = 4,
+    sound = { sound = "polychrome1", per = 1.2, vol = 0.7 },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.edition.xchips } }
+    end,
+    get_weight = function(self)
+        return (G.GAME.edition_rate - 1) * G.P_CENTERS["e_negative"].weight + G.GAME.edition_rate * self.weight
+    end,
+    calculate = function(self, card, context)
+        if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
+            return {
+                xchips = card.edition.xchips
+            }
+        end
+    end
+}
+
 -- Heat levels
 
 --[[

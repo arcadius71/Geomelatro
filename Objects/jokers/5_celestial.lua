@@ -163,3 +163,41 @@ SMODS.Joker {
         end
     end
 }
+
+SMODS.Joker({
+    key = "moon",
+
+    config = {},
+
+        loc_txt = {
+        name = 'The Moon',
+        text = {
+            "First played {C:spades}Spade",
+            "card turns {C:dark_edition}Moonlit{}."
+        }
+    },
+
+    cost = 11,
+    rarity = "arcs_celestial",
+    blueprint_compat = false,
+
+    atlas = 'CustomJokers',
+    pos = {x=9, y=0},
+    pools = { ["arcs_arcs_jokers"] = true },
+
+    calculate = function(self, card, context)
+       if context.before then
+            for i, v in ipairs(context.scoring_hand) do
+                if v.base.suit == "Spades" and not v.ability.moonGiven then
+                    v:set_edition("e_arcs_moon")
+                    v.ability.moonGiven = true
+                    
+                    card:juice_up()
+                    v:juice_up()
+                    
+                    return
+                end
+            end
+        end
+    end
+})
