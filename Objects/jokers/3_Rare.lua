@@ -46,7 +46,7 @@ SMODS.Joker {
 		return { vars = {G.GAME.probabilities.normal, card.ability.extra.Chance}}
 	end,
 
-    cost = 6, -- :trol:
+    cost = 10, -- :trol:
     rarity = 3,
     blueprint_compat = true,
     
@@ -73,7 +73,7 @@ SMODS.Joker {
     key = "triangle",
     pos = {x=3, y=0}, -- why is it on default joker spritesheet
 
-    cost = 7, -- :trol:
+    cost = 9, -- :trol:
     rarity = 3,
     blueprint_compat = true,
     
