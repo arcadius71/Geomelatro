@@ -54,3 +54,61 @@ SMODS.Joker { --Trigger-Nometry
         end
     end
 }
+
+SMODS.Joker {
+    key = 'sine',
+    loc_txt = {
+        name = 'Sine Wave',
+        text = {
+            'Alternates between',
+            '{C:mult}+#1#{} Mult and',
+            '{C:mult}-#1#{} Mult',
+            'each hand played'
+        }
+    },
+    config = { extra = { mult = 5, positive = true } },
+    rarity = 2,
+    cost = 3,
+    blueprint_compat = true,
+    pos = { x = 1, y = 1 },
+    atlas = 'CustomJokers',
+    pools = { ["arcs_arcs_jokers"] = true },
+    
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+    
+    calculate = function(self, card, context)
+        if context.joker_main then
+            if card.ability.extra.positive then
+                return {
+                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } },
+                    mult_mod = card.ability.extra.mult
+                }
+            else
+                return {
+                    message = localize { type = 'variable', key = 'a_mult', vars = { -card.ability.extra.mult } },
+                    mult_mod = -card.ability.extra.mult
+                }
+            end
+        end
+        
+        if context.after and not context.blueprint then
+            card.ability.extra.positive = not card.ability.extra.positive
+            
+            if card.ability.extra.positive then
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = "Next: +" .. card.ability.extra.mult,
+                    colour = G.C.MULT
+                })
+            else
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = "Next: -" .. card.ability.extra.mult,
+                    colour = G.C.RED
+                })
+            end
+            
+            return nil
+        end
+    end
+}

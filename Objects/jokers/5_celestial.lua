@@ -113,7 +113,7 @@ SMODS.Joker {
     loc_txt = {
         name = 'Black Hole',
         text = {
-            '{C:green}1 in 6{} chance to',
+            '{C:green}1 in #6#{} chance to',
             'make a random {C:attention}Joker',
             '{C:dark_edition}Negative{} at the',
             'start of each blind.'
