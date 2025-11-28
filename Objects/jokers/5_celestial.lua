@@ -7,9 +7,9 @@ SMODS.Joker({
         "e_arcs_toasted",
     } } },
 
-    cost = 11,
+    cost = 15,
     rarity = "arcs_celestial",
-    blueprint_compat = false,
+    blueprint_compat = true,
 
     atlas = 'CustomJokers',
     pos = {x=6, y=0},
@@ -48,7 +48,7 @@ SMODS.Joker({
         mult_bonus = 50
     },
 
-    cost = 11,
+    cost = 12,
     rarity = "arcs_celestial",
     blueprint_compat = true,
 
@@ -113,7 +113,7 @@ SMODS.Joker {
     loc_txt = {
         name = 'Black Hole',
         text = {
-            '{C:green}1 in 6{} chance to',
+            '{C:green}1 in #6#{} chance to',
             'make a random {C:attention}Joker',
             '{C:dark_edition}Negative{} at the',
             'start of each blind.'
@@ -125,7 +125,7 @@ SMODS.Joker {
     pos = { x = 8, y = 0 },
         pools = { ["arcs_arcs_jokers"] = true },
 
-    cost = 11,
+    cost = 12,
     blueprint_compat = false,
     
     loc_vars = function(self, info_queue, card)
@@ -179,10 +179,10 @@ SMODS.Joker({
 
     cost = 11,
     rarity = "arcs_celestial",
-    blueprint_compat = false,
+    blueprint_compat = true,
 
     atlas = 'CustomJokers',
-    pos = {x=9, y=0},
+    pos = {x = 9, y = 0},
     pools = { ["arcs_arcs_jokers"] = true },
 
     calculate = function(self, card, context)
