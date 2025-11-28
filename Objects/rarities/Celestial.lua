@@ -3,7 +3,7 @@ SMODS.Rarity {
     pools = {
         ["Joker"] = true
     },
-    default_weight = 0.015,
+    default_weight = 0.005,
     badge_colour = SMODS.Gradient({
         key = "celestialgrad",
         colours = {
