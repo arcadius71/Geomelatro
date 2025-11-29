@@ -146,8 +146,8 @@ local function Grade() -- theres like 7 different "Grade" variables
 	local required = to_big(G.GAME.blind.chips)
 	local score = to_big(G.GAME.chips)
 	local over = to_big(score / required)
-	print("Discards: ".. discards, "Hands: ".. hands,
-		  "Score: ".. score, "Over: ".. over)
+	-- print("Discards: ".. discards, "Hands: ".. hands,
+		--   "Score: ".. score, "Over: ".. over)
 
 	local hPoint = -4
 	local gradetbl
@@ -169,22 +169,22 @@ local function Grade() -- theres like 7 different "Grade" variables
 			goto continue
 		end
 		-- score
-		print(to_big(grade.score[2]) < over, "a2")
-		print(to_big(grade.score[1]) < over, "a1")
+		-- print(to_big(grade.score[2]) < over, "a2")
+		-- print(to_big(grade.score[1]) < over, "a1")
 		if to_big(grade.score[2]) < over then
 			grade.othermet = false
 		elseif to_big(grade.score[1]) < over then
 			grade.met = false
 		end
 
-		print(to_big(grade.hands) > hands, "b")
+		-- print(to_big(grade.hands) > hands, "b")
 		if to_big(grade.hands) > hands then grade.met = false end
 			-- fuck that we're doing it in one line
 			
-		print(to_big(grade.discards) > discards, "c")
+		-- print(to_big(grade.discards) > discards, "c")
 		if to_big(grade.discards) > discards then grade.met = false end
 
-		print((grade.othermet or grade.met) and grade.points > hPoint, "d")
+		-- print((grade.othermet or grade.met) and grade.points > hPoint, "d")
 		if (grade.othermet or grade.met) then
 			if grade.points > hPoint then
 				hPoint = grade.points
@@ -194,15 +194,15 @@ local function Grade() -- theres like 7 different "Grade" variables
 		end
 		grade.othermet = true
 		grade.met = true
-		print([[
+		-- print([[
 
 
 
-		:3
+		-- :3
 
 
 
-		]])
+		-- ]])
 	    ::continue::
 	end
 
@@ -218,7 +218,7 @@ geomelatro.calculate = function(self, context)
 		end
 	elseif context.end_of_round and not context.game_over then
 		local grading = Grade()
-		print(grading.grade)
+		-- print(grading.grade)
 	elseif context.end_of_round and context.game_over and context.main_eval and SMODS.find_card("j_mr_bones") then
 		G.GAME.Grades = G.GAME.Grades - 3
 	end
