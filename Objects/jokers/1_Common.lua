@@ -66,8 +66,8 @@ SMODS.Joker {
             'each hand played'
         }
     },
-    config = { extra = { mult = 5, positive = true } },
-    rarity = 2,
+    config = { extra = { mult = 10, positive = true } },
+    rarity = 1,
     cost = 3,
     blueprint_compat = true,
     pos = { x = 1, y = 1 },
@@ -79,36 +79,19 @@ SMODS.Joker {
     end,
     
     calculate = function(self, card, context)
+        local config = card.ability.extra
         if context.joker_main then
-            if card.ability.extra.positive then
-                return {
-                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } },
-                    mult_mod = card.ability.extra.mult
-                }
-            else
-                return {
-                    message = localize { type = 'variable', key = 'a_mult', vars = { -card.ability.extra.mult } },
-                    mult_mod = -card.ability.extra.mult
-                }
-            end
+            return {
+                mult = config.positive and config.mult or -config.mult
+            }
         end
         
         if context.after and not context.blueprint then
-            card.ability.extra.positive = not card.ability.extra.positive
-            
-            if card.ability.extra.positive then
-                card_eval_status_text(card, 'extra', nil, nil, nil, {
-                    message = "Next: +" .. card.ability.extra.mult,
-                    colour = G.C.MULT
-                })
-            else
-                card_eval_status_text(card, 'extra', nil, nil, nil, {
-                    message = "Next: -" .. card.ability.extra.mult,
-                    colour = G.C.RED
-                })
-            end
-            
-            return nil
+            config.positive = not config.positive
+
+            return {
+                message = "Next: ".. config.positive and "+".. config.mult or "-".. config.mult
+            }
         end
     end
 }

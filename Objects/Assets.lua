@@ -39,3 +39,11 @@ SMODS.Atlas({
     py = 95,
     atlas_table = "ASSET_ATLAS"
 })
+
+SMODS.Atlas({
+    key = "vouchers",
+    path = "CustomVouchers.png",
+    px = 71,
+    py = 95,
+    atlas_table = "ASSET_ATLAS"
+})
