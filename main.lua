@@ -2,6 +2,7 @@ to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
 local geomelatro = SMODS.current_mod
+G.Arcs = {}
 
 -- Load Files and Folders
 
@@ -51,7 +52,7 @@ geomelatro.Load_Dir("Objects/rarities")
 
 
 	-- All requirements
-local GradeReq = {
+G.Arcs.GradeReq = {
 	{ -- requires custom code, so make it free n shit
 		grade = "A++",
 
@@ -135,34 +136,35 @@ local GradeReq = {
 	},
 }
 local GradeRewards = { -- Total == 1
-	{
+	{ -- istg if I have to hard code this
 		title = "Random Voucher",
-		name = "R-Vouch",
+		name = "R-vouch",
 		weight = 0.05,
 	},
 	{
 		title = "Random Pack",
-		name = "R-Pack",
+		name = "R-pack",
 		weight = 0.25,
 	},
 	{
 		title = "Random Tag",
-		name = "R-Pack",
+		name = "R-tag",
 		weight = 0.2,
 	},
 	{
 		title = "Random Joker",
-		name = "R-Joke",
+		name = "R-joke",
 		weight = 0.25,
 	},
 	{
 		title = "Random Buff",
-		name = "R-Buff",
+		name = "R-buff",
 		weight = 0.25,
 	},
 }
 
 	-- Function to check requirements
+
 local function Grade() -- theres like 7 different "Grade" variables
 	local discards = to_big(G.GAME.current_round.discards_used)
 	local hands = to_big(G.GAME.current_round.hands_played)
@@ -174,7 +176,7 @@ local function Grade() -- theres like 7 different "Grade" variables
 	local gradetbl
 
 	-- Check Score requirements
-	for _, grade in ipairs(GradeReq) do -- has to be ipairs since if its outta order A being before A+ would make A more priority than A+
+	for _, grade in ipairs(G.Arcs.GradeReq) do -- has to be ipairs since if its outta order A being before A+ would make A more priority than A+
 		-- holy if statements | Def gonna want to beg balatro server to help me check if its good or not 😭
 		if grade.grade == "A++" then
 			-- custom stuff here
@@ -202,7 +204,7 @@ local function Grade() -- theres like 7 different "Grade" variables
 	    ::continue::
 	end
 
-	return gradetbl or GradeReq[9]
+	return gradetbl or G.Arcs.GradeReq[#G.Arcs.GradeReq] -- gives lowest grade
 end
 
 function RandReward()
@@ -234,17 +236,17 @@ function RandReward()
 
     local randomNumber = math.random() * totalWeight
 
-    local selectedItem = nil
-    for _, item in ipairs(RewCopy) do
+    local selectedIndex = nil
+    for index, item in ipairs(RewCopy) do
 		-- print(item)
         randomNumber = randomNumber - item.weight
         if randomNumber <= 0 then
-            selectedItem = item
+            selectedIndex = index
             break
         end
     end
 
-	return selectedItem
+	return GradeRewards[selectedIndex]
 end
 
 geomelatro.calculate = function(self, context)
@@ -256,13 +258,76 @@ geomelatro.calculate = function(self, context)
 		end
 	elseif context.end_of_round and not context.game_over and context.main_eval then
 		local grading = Grade()
-		G.GAME.Grades = G.GAME.Grades + grading.points
+		G.GAME.Grades = G.GAME.Grades + grading.points * (G.GAME.GradeMult or 1)
 
 		local reward = RandReward()
 		G.GAME.LastGrade = grading
 		G.GAME.LG_Reward = reward
 		print(grading.grade)
 		print("Awarding: ", reward)
+		
+		-- give hte award, for now its built in :(
+			--- Majority from vremade btwwww
+	elseif context.starting_shop then
+		local reward = G.GAME.LG_Reward
+
+		if reward.name == "R-vouch" then
+			local voucher_pool = get_current_pool('Voucher')
+			local selected_voucher = pseudorandom_element(voucher_pool, 'arcs_R_vouch')
+			local it = 1
+			while selected_voucher == 'UNAVAILABLE' do
+				it = it + 1
+				selected_voucher = pseudorandom_element(voucher_pool, 'arcs_seed' .. it)
+			end
+			local voucher_card = SMODS.create_card({ area = G.play, key = selected_voucher }) -- Ignore the previous code and just use a key for a prefined voucher
+			voucher_card:start_materialize()
+			voucher_card.cost = 0
+			G.play:emplace(voucher_card)
+			delay(0.8)
+			voucher_card:redeem()
+
+			G.E_MANAGER:add_event(Event({
+				trigger = 'after',
+				delay = 0.5,
+				func = function()
+					voucher_card:start_dissolve()
+					return true
+				end
+			}))
+		elseif reward.name == "R-pack" then
+			local lock = "R-pack-".. math.random()
+			G.CONTROLLER.locks[lock] = true
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					local booster = SMODS.create_card { key = 'p_standard_mega_1', area = G.play }
+					booster.T.x = G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2
+					booster.T.y = G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2
+					booster.T.w = G.CARD_W * 1.27
+					booster.T.h = G.CARD_H * 1.27
+					booster.cost = 0
+					booster.from_tag = false
+
+					G.FUNCS.use_card({ config = { ref_table = booster } })
+					booster:start_materialize()
+					G.CONTROLLER.locks[lock] = nil
+					return true
+				end
+			}))
+		elseif reward.name == "R-tag" then
+			local tag_pool = get_current_pool('Tag')
+			local selected_tag = pseudorandom_element(tag_pool, 'arcs_R_tag')
+			local it = 1
+			while selected_tag == 'UNAVAILABLE' do
+				it = it + 1
+				selected_tag = pseudorandom_element(tag_pool, 'arcs_seed_resample'..it)
+			end
+			add_tag(Tag(selected_tag, false, 'Small')) -- Ignore the previous code and just use a key for a prefined tag
+		elseif reward.name == "R-joke" and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+			SMODS.add_card{ -- For a random one
+				set = "Joker", -- You can use a custom pool/ObjectType. See `What's a pool/set?`
+				key_append = "arcs_append" -- Optional, key for randomization/pool checking
+			}
+		end
 	elseif context.end_of_round and context.game_over and context.main_eval and SMODS.find_card("j_mr_bones") then
 		G.GAME.Grades = 1
 	end

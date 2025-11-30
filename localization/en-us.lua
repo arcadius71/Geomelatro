@@ -65,7 +65,16 @@ return {
         Stake = {},
         Tag = {},
         Tarot = {},
-        Voucher = {},
+        Voucher = {
+            v_arcs_homework = {
+                name = "Homework",
+                text = {"{C:attention}Better{} odds for", "Better pre-shop {C:attention}Prizes"}
+            },
+            v_arcs_scholar = {
+                name = "Scholarship",
+                text = {"{C:attention}Easier{} to get", "Better {C:attention}grades"}
+            }
+        },
     },
     misc = {
         achievement_descriptions = {},

@@ -54,7 +54,7 @@ if config.name ~= 'grade' then
 '''
 match_indent = true
 
-    # remove
+    # end remove
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -71,5 +71,18 @@ payload = '''
 else -- for the config.name ~= 'grade'
 
 end
+'''
+match_indent = true
+
+    # make cashout set a variable
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''
+G.FUNCS.cash_out = function(e)
+'''
+position = "after"
+payload = '''
+SMODS.calculate_context { Bitters_CashedOut = true }
 '''
 match_indent = true
