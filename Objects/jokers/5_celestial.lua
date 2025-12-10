@@ -1,4 +1,4 @@
-SMODS.Joker({
+SMODS.Joker {
     key = "sun",
 
     config = { extra = { lifecycle = {
@@ -36,9 +36,9 @@ SMODS.Joker({
             end
         end
     end
-})
+}
 
-SMODS.Joker({
+SMODS.Joker {
     key = "pulsar",
 
     config = {
@@ -55,16 +55,6 @@ SMODS.Joker({
     atlas = 'CustomJokers',
     pos = {x=7, y=0},
     pools = { ["arcs_arcs_jokers"] = true },
-
-    loc_txt = {
-        name = 'Pulsar',
-        text = {
-            "Every hand played stacks {C:mult}+5{} Mult,",
-            "Releases {C:mult}+#4#{} Mult when stacked to {C:attention}#2#{}",
-            "then {C:attention}reset{} charge.",
-            "{C:inactive}(Currently {C:inactive}#1#{C:inactive}/#2#)"
-        }
-    },
 
     loc_vars = function(self, info_queue, card)
         return {
@@ -106,19 +96,11 @@ SMODS.Joker({
             end
         end
     end,
-})
+}
 
 SMODS.Joker {
     key = "blackhole",
-    loc_txt = {
-        name = 'Black Hole',
-        text = {
-            '{C:green}1 in #6#{} chance to',
-            'make a random {C:attention}Joker',
-            '{C:dark_edition}Negative{} at the',
-            'start of each blind.'
-        }
-    },
+
     config = { extra = { odds = 6 } },
     rarity = "arcs_celestial",
     atlas = 'CustomJokers',
@@ -166,16 +148,6 @@ SMODS.Joker {
 
 SMODS.Joker({
     key = "moon",
-
-    config = {},
-
-        loc_txt = {
-        name = 'The Moon',
-        text = {
-            "First played {C:spades}Spade",
-            "card turns {C:dark_edition}Moonlit{}."
-        }
-    },
 
     cost = 11,
     rarity = "arcs_celestial",

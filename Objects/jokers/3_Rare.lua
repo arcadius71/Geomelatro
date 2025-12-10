@@ -2,7 +2,7 @@ SMODS.Joker{ --Overgrowth
     key = "overgrowth",
     pos = {x=0, y=0},
 
-    cost = 7,
+    cost = 12,
     rarity = 3,
     blueprint_compat = true,
 
@@ -103,8 +103,8 @@ SMODS.Joker { --Jellyfish
     key = "jellyfish",
     pos = {x=5, y=0},
 
-    cost = 3,
-    rarity = 2,
+    cost = 8,
+    rarity = 3,
     blueprint_compat = true,
 
     atlas = 'CustomJokers',

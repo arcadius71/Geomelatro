@@ -4,12 +4,13 @@ return {
         Blind = {},
         Enhanced = {},
         Joker = {
-            j_arcs_overgrowth = {
-                name = 'Overgrowth',
+        -- common
+            j_arcs_rectangle = {
+                name = 'Rectangle',
                 text = {
-                    "If {C:attention}first hand{} of round",
-                    "has {C:attention}5{} cards",
-                    "copy them to the deck."
+                    "Area of a square is {C:mult}B × H",
+                    "Left most {C:attention}joker's{} price is {E:1}base",
+                    "Right most {C:attention}joker's{} price is {E:1}height",
                 },
             },
             j_arcs_triggernometry = {
@@ -17,6 +18,33 @@ return {
                 text = {
                     "Retrigger played {C:attention}3's",
                     "{C:attention}Aces'{}, and {C:attention}4's"
+                },
+            },
+            j_arcs_sine = {
+                name = 'Sine Wave',
+                text = {
+                    'Alternates between',
+                    '{C:mult}+#1#{} Mult and',
+                    '{C:mult}-#1#{} Mult',
+                    'each hand played'
+                }
+            },
+        -- uncommon
+            j_arcs_eulers = {
+                name = "Euler's Number",
+                text = {
+                    "Gains {C:mult}+0.1{} Mult",
+                    "for every played card",
+                    "{C:inactive}(Currently {C:inactive}+#1# Mult){}"
+                }
+            },
+        -- rare
+            j_arcs_overgrowth = {
+                name = 'Overgrowth',
+                text = {
+                    "If {C:attention}first hand{} of round",
+                    "has {C:attention}5{} cards",
+                    "copy them to the deck."
                 },
             },
             j_arcs_pi = {
@@ -35,14 +63,6 @@ return {
                     "Right most {C:attention}joker's{} price is {E:1}height",
                 },
             },
-            j_arcs_rectangle = {
-                name = 'Rectangle',
-                text = {
-                    "Area of a square is {C:white,X:mult}B × H",
-                    "Left most {C:attention}joker's{} price is {E:1}base",
-                    "Right most {C:attention}joker's{} price is {E:1}height",
-                },
-            },
             j_arcs_jellyfish = {
                 name = 'Jellyfish',
                 text = {
@@ -51,6 +71,7 @@ return {
                     "{E:1, C:dark_edition}Bioluminescent{}.",
                 },
             },
+        -- celestial
             j_arcs_sun = {
                 name = 'Sun',
                 text = {
@@ -58,6 +79,29 @@ return {
                     "Scales {E:1,C:dark_edition}Heat{}.",
                 },
             },
+            j_arcs_pulsar = {
+                name = 'Pulsar',
+                text = {
+                    "Every {C:attention}3rd hand{} played",
+                    "gains {C:mult}+0.5{} Mult.",
+                },
+            },
+            j_arcs_blackhole = {
+                name = 'Black Hole',
+                text = {
+                    '{C:green}1 in #6#{} chance to',
+                    'make a random {C:attention}Joker',
+                    '{C:dark_edition}Negative{} at the',
+                    'start of each blind.'
+                }
+            },
+            j_arcs_moon = {
+                name = 'The Moon',
+                text = {
+                    "First played {C:spades}Spade",
+                    "card turns {C:dark_edition}Moonlit{}."
+                }
+            }
         },
         Other = {},
         Planet = {},

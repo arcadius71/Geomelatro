@@ -57,15 +57,7 @@ SMODS.Joker { --Trigger-Nometry
 
 SMODS.Joker {
     key = 'sine',
-    loc_txt = {
-        name = 'Sine Wave',
-        text = {
-            'Alternates between',
-            '{C:mult}+#1#{} Mult and',
-            '{C:mult}-#1#{} Mult',
-            'each hand played'
-        }
-    },
+    
     config = { extra = { mult = 10, positive = true } },
     rarity = 1,
     cost = 3,
