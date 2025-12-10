@@ -56,8 +56,8 @@ G.Arcs.GradeReq = {
 	{ -- requires custom code, so make it free n shit
 		grade = "A++",
 
-		met = true,
-		score = {0},
+		met = false,
+		score = 0,
 		hands = 10,
 		discards = 10,
 		points = 6
@@ -121,7 +121,7 @@ G.Arcs.GradeReq = {
 
 		met = true,
 		score = 1,
-		hands = 3,
+		hands = 10,
 		discards = 10,
 		points = -1 -- I can do minus values since it automatically gets set to 1 if below 1
 	},
@@ -130,37 +130,57 @@ G.Arcs.GradeReq = {
 
 		met = true,
 		score = 0,
-		hands = 3,
+		hands = 10,
 		discards = 10,
 		points = -3 -- Bascially sets 1
 	},
 }
 local GradeRewards = { -- Total == 1
-	{ -- istg if I have to hard code this
-		title = "Random Voucher",
-		name = "R-vouch",
-		weight = 0.05,
-	},
-	{
-		title = "Random Pack",
-		name = "R-pack",
-		weight = 0.25,
-	},
-	{
-		title = "Random Tag",
-		name = "R-tag",
-		weight = 0.2,
-	},
-	{
+	[1] = {
 		title = "Random Joker",
 		name = "R-joke",
 		weight = 0.25,
 	},
-	{
+	[2] = {
 		title = "Random Buff",
 		name = "R-buff",
 		weight = 0.25,
 	},
+	[3] = {
+		title = "Random Tag",
+		name = "R-tag",
+		weight = 0.2,
+	},
+	[4] = {
+		title = "Random Pack",
+		name = "R-pack",
+		weight = 0.1,
+	},
+	[5] = { -- istg if I have to hard code this
+		title = "Random Voucher",
+		name = "R-vouch",
+		weight = 0.05,
+	},
+	[6] = {
+		title = "nothing..",
+		name = "air",
+		weight = 0,
+	},
+} -- the numbers aren't required, I just wanna see the index of each reward
+
+local buffs = {
+    {
+        title = "+1 temporary hand",
+		name = "R-buff",
+        variable = "next_hands",
+        change = 1
+    },
+    {
+        title = "+1 temporary discard",
+		name = "R-buff",
+        variable = "discards",
+        change = 1
+    },
 }
 
 	-- Function to check requirements
@@ -210,6 +230,10 @@ end
 function RandReward()
 	local score = G.GAME.Grades
 
+	if G.GAME.LastGrade.grade == "F-" then
+		return GradeRewards[#GradeRewards]
+	end
+
 -- set up copy
 	local RewCopy = {}
 	for i, v in pairs(GradeRewards) do
@@ -227,9 +251,7 @@ function RandReward()
 -- Get the random
     local totalWeight = 0
 	for i, reward in pairs(RewCopy) do
-		print(reward)
 		reward.weight = reward.weight ^ (score ^ -1)
-		print(reward)
 		-- say weight is 0.66 and score is 2.3, then its now 0.8347
         totalWeight = totalWeight + reward.weight
 	end
@@ -238,7 +260,6 @@ function RandReward()
 
     local selectedIndex = nil
     for index, item in ipairs(RewCopy) do
-		-- print(item)
         randomNumber = randomNumber - item.weight
         if randomNumber <= 0 then
             selectedIndex = index
@@ -257,14 +278,17 @@ geomelatro.calculate = function(self, context)
 			G.GAME.Grades = 1
 		end
 	elseif context.end_of_round and not context.game_over and context.main_eval then
+		-- grades
 		local grading = Grade()
+		G.GAME.LastGrade = grading
 		G.GAME.Grades = G.GAME.Grades + grading.points * (G.GAME.GradeMult or 1)
 
+		-- reward
 		local reward = RandReward()
-		G.GAME.LastGrade = grading
+		if reward.name == "R-buff" then
+			reward = buffs[math.random(1,#buffs)]
+		end
 		G.GAME.LG_Reward = reward
-		print(grading.grade)
-		print("Awarding: ", reward)
 		
 		-- give hte award, for now its built in :(
 			--- Majority from vremade btwwww
@@ -296,10 +320,12 @@ geomelatro.calculate = function(self, context)
 			}))
 		elseif reward.name == "R-pack" then
 			local lock = "R-pack-".. math.random()
+			local boost_pool = get_current_pool('Booster')
+			local selected_voucher = pseudorandom_element(boost_pool, 'arcs_R_boost')
 			G.CONTROLLER.locks[lock] = true
 			G.E_MANAGER:add_event(Event({
 				func = function()
-					local booster = SMODS.create_card { key = 'p_standard_mega_1', area = G.play }
+					local booster = SMODS.create_card { key = selected_voucher, area = G.play }
 					booster.T.x = G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2
 					booster.T.y = G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2
 					booster.T.w = G.CARD_W * 1.27
@@ -327,6 +353,10 @@ geomelatro.calculate = function(self, context)
 				set = "Joker", -- You can use a custom pool/ObjectType. See `What's a pool/set?`
 				key_append = "arcs_append" -- Optional, key for randomization/pool checking
 			}
+
+	-- buffs
+		elseif reward.name == "R-buff" then
+			G.GAME.round_bonus[reward.variable] = G.GAME.round_bonus[reward.variable] + math.floor(reward.change + G.GAME.Grades / 3)
 		end
 	elseif context.end_of_round and context.game_over and context.main_eval and SMODS.find_card("j_mr_bones") then
 		G.GAME.Grades = 1

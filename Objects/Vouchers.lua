@@ -4,7 +4,11 @@ SMODS.Voucher {
     -- pos = {x=0,y=0},
 
     redeem = function(self, voucher)
-        G.GAME.GradeMult = (G.GAME.GradeMult or 0) + 1.5
+        if not G.GAME.GradeMult then
+            G.GAME.GradeMult = 0
+        end
+
+        G.GAME.GradeMult = G.GAME.GradeMult + 1.5
     end
 }
 
@@ -12,6 +16,8 @@ SMODS.Voucher {
     key = "scholar",
     -- atlas = "",
     -- pos = {x=1,y=0},
+
+    requires = {'v_arcs_homework'},
 
     redeem = function(self, voucher)
         for _, tbl in pairs(G.Arcs.GradeReq) do

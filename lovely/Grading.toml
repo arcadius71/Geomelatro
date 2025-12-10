@@ -17,7 +17,7 @@ pattern = '''
 position = "after"
 payload = '''
 elseif config.name == 'grade' then
-    table.insert(left_text, {n=G.UIT.T, config={text = config.disp or "", scale = 0.8*scale, colour = G.C.GREEN, shadow = true, juice = true}})
+    table.insert(left_text, {n=G.UIT.T, config={text = config.disp or "F-", scale = 0.8*scale, colour = G.C.GREEN, shadow = true, juice = true}})
     table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" Grade Achieved"}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
 '''
 match_indent = true                
@@ -35,54 +35,49 @@ pattern = '''
 position = "after"
 payload = '''
     if G.GAME.LastGrade then
-        add_round_eval_row({  disp = G.GAME.LastGrade.grade, bonus = true, name='grade', pitch = pitch})
+        add_round_eval_row({  disp = G.GAME.LastGrade.grade, right_text = G.GAME.LG_Reward.title, bonus = true, name='grade', pitch = pitch})
         pitch = pitch + 0.06
     end
 '''
 match_indent = true                
 
-    # remove
 [[patches]]
 [patches.pattern]
-target = 'functions/common_events.lua'
+target = "functions/common_events.lua"
 pattern = '''
-local dollar_row = 0
+if num_dollars > 60 or num_dollars < -60 then
 '''
 position = "before"
 payload = '''
-if config.name ~= 'grade' then
+if config.name == 'grade' and config.right_text then
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',delay = 0.38,
+        func = function()
+            G.round_eval:add_child(
+                {n=G.UIT.R, config={align = "cm", id = 'dollar_row_'..(dollar_row+1)..'_'..config.name}, nodes={
+                    {n=G.UIT.O, config={object = DynaText({string = {config.right_text}, colours = {G.C.GREEN}, shadow = true, pop_in = 0, scale = 0.55, float = true})}}
+                }},
+                G.round_eval:get_UIE_by_ID('dollar_'..config.name))
+            play_sound('coin3', 0.9+0.2*math.random(), 0.7)
+            play_sound('coin6', 1.3, 0.8)
+            return true
+        end
+    }))
+else
 '''
 match_indent = true
 
-    # end remove
+# closes previous patch
 [[patches]]
 [patches.pattern]
-target = 'functions/common_events.lua'
+target = "functions/common_events.lua"
 pattern = '''
-                G.VIBRATION = G.VIBRATION + 0.4
-                return true
-            end
-        }))
     end
-end
+else
+    delay(0.4)
 '''
-position = "after"
+position = "before"
 payload = '''
-else -- for the config.name ~= 'grade'
-
 end
-'''
-match_indent = true
-
-    # make cashout set a variable
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-pattern = '''
-G.FUNCS.cash_out = function(e)
-'''
-position = "after"
-payload = '''
-SMODS.calculate_context { Bitters_CashedOut = true }
 '''
 match_indent = true
